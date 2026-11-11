@@ -683,7 +683,11 @@ function pageContent(tpl, docId) {
 
   let page;
   if (tpl.points) {
-    page = { content: [intro, h('dl', {}, tpl.points.map(p => [h('dt', {}, p.label), h('dd', {}, p.text)]))] };
+    // Samma utseende som mallarnas minneslista: rubrik med förklaring i liten stil
+    page = { content: [intro, h('hr', {}), tpl.points.map(p =>
+      h('div', { class: 'field' },
+        h('div', { class: 'label' }, p.label),
+        h('div', { class: 'help' }, p.text)))] };
   } else if (tpl.table) {
     page = { content: [intro, h('table', {},
       h('thead', {}, h('tr', {}, tpl.table.head.map(c => h('th', { scope: 'col' }, c)))),
