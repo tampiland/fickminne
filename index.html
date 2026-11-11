@@ -140,6 +140,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 22px 0 0; }
 .read dl { margin: 0; }
 .read dt { font-weight: 650; margin-top: 12px; }
 .read dd { margin: 2px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 18px; }
+th, td { text-align: left; padding: 7px 8px 7px 0; border-bottom: 1px solid var(--line); }
+thead th { font-size: 13px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+tbody th { width: 2.2em; color: var(--accent); }
 
 /* ---- Knappar och formulär ---- */
 .btn {
@@ -225,6 +229,7 @@ input:focus, textarea:focus, .btn:focus-visible, header button:focus-visible, .d
    sections: [{ title, fields: [{ id, label, help, placeholder, auto? }] }]
      auto: 'tidsnummer' – lämnas fältet tomt får det samma tidsnummer som benämningen
    points:   [{ label, text }]
+   I stället för points kan en minnesregel ha en tabell: table: { head: [...], rows: [[...], ...] }
    Byt aldrig id på en mall eller ett fält – sparade poster pekar på dem.
 ------------------------------------------------------------------- */
 // Kategorier i den ordning de visas i menyn
@@ -342,6 +347,109 @@ const TEMPLATES = [
         ],
       },
     ],
+  },
+  {
+    id: 'obslosa',
+    cat: 'order',
+    name: 'OBSLÖSA',
+    full: 'Orientering – Bevakningsområde – Sätt att tillkalla chef – Lösen – Öppnande av eld – Ställning och utrustning – Avlösning',
+    desc: 'Instruktion till post.',
+    sections: [
+      {
+        title: 'Postinstruktion',
+        fields: [
+          { id: 'orient', label: 'Orientering',
+            help: 'Fienden och egen trupp i närområdet, även utanför synfältet. Ljud och ljus som kan förekomma.',
+            placeholder: 'Egna finns … Fi kan väntas från …' },
+          { id: 'bevomr', label: 'Bevakningsområde',
+            help: 'Gräns vänster och gräns höger. Ett område som går att överblicka från platsen.',
+            placeholder: 'Gräns vänster: … Gräns höger: …' },
+          { id: 'tillkalla', label: 'Sätt att tillkalla chef',
+            help: 'Signallina, radio eller annat överenskommet sätt.',
+            placeholder: 'Ryck två gånger i signallinan' },
+          { id: 'losen', label: 'Lösen',
+            help: 'Anrop och svar.',
+            placeholder: 'Anrop: … Svar: …' },
+          { id: 'eld', label: 'Öppnande av eld',
+            help: 'När får posten öppna eld? På chefs order, vid överhängande fara eller om fienden når ett angivet läge.',
+            placeholder: 'Eld öppnas endast på min order eller vid överhängande fara' },
+          { id: 'stallning', label: 'Ställning och utrustning',
+            help: 'Var posten står, kroppsläge och vilken utrustning som finns på platsen.',
+            placeholder: 'Liggande bakom … Kikare och radio finns på platsen' },
+          { id: 'avlosning', label: 'Avlösning',
+            help: 'När och hur avlösning sker, och av vem.',
+            placeholder: 'Avlösning kl … av …' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'pedars',
+    cat: 'rapport',
+    name: 'PEDARS',
+    full: 'Personal – Ersättning – Drivmedel – Ammunition – Reservdelar – Sjukvård',
+    desc: 'Rapport om förbandets försörjningsläge till högre chef.',
+    sections: [
+      {
+        title: 'Rapport',
+        fields: [
+          { id: 'personal', label: 'Personal',
+            help: 'Personalläget: stridsdugliga, skadade, saknade, stupade.',
+            placeholder: '7 stridsdugliga, 1 skadad' },
+          { id: 'ersattning', label: 'Ersättning',
+            help: 'Behov av ersättning för förlorad personal och materiel.',
+            placeholder: 'Behov: 1 skytt, 1 ksp' },
+          { id: 'drivmedel', label: 'Drivmedel',
+            help: 'Hur mycket som finns kvar och hur länge det räcker.',
+            placeholder: 'Halv tank, räcker ca … km' },
+          { id: 'am', label: 'Ammunition',
+            help: 'Ammunitionsläget per vapenslag.',
+            placeholder: 'Ak 60 %, ksp 40 %, pskott 2 st' },
+          { id: 'reserv', label: 'Reservdelar',
+            help: 'Vad som är ur funktion och vad som behövs för att laga det.',
+            placeholder: '1 fordon ur funktion, behov …' },
+          { id: 'sjukvard', label: 'Sjukvård',
+            help: 'Förmåga att ta hand om skadade, behov av sjukvårdsmateriel och avtransport.',
+            placeholder: '1 skadad behöver avtransport' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'eobusare',
+    cat: 'hjalpmedel',
+    name: 'EOBUSARE',
+    full: 'Eldställning – Observatör – Bevakningsområde – Utgångspunkter – Samband – Am- och skaderapport – Rapport – Eldställningar förbättras',
+    desc: 'Gruppchefens kom-ihåg-lista när gruppen går i stridsställning och det finns tid. En checklista, inte en fast ordningsföljd.',
+    points: [
+      { label: 'Eldställning', text: 'Tilldela varje soldat en eldställning, kontrollera den och ge eldområde och skjutgränser.' },
+      { label: 'Observatör', text: 'Utse en observatör som bevakar området framför stridsställningen.' },
+      { label: 'Bevakningsområde', text: 'Ge observatören ett bevakningsområde. Vid längre uppehåll: full postinstruktion enligt OBSLÖSA.' },
+      { label: 'Utgångspunkter', text: 'Ta ut och ange fasta punkter i terrängen för målangivning. Vid brådska kan klockmetoden användas.' },
+      { label: 'Samband', text: 'Ta samband med sidoförbanden, så att luckor täcks och vådabeskjutning undviks.' },
+      { label: 'Am- och skaderapport', text: 'Rapporteras från flankerna in mot mitten och summeras av gruppchefen.' },
+      { label: 'Rapport till plutonchef', text: 'Rapportera att gruppen är beredd, med ammunitions- och skadeläge.' },
+      { label: 'Eldställningar förbättras', text: 'Använd tiden: maskera, röj skottfält, gräv skyddsgropar, öva tillbakaryckningsvägar.' },
+    ],
+  },
+  {
+    id: 'bokstavering',
+    cat: 'hjalpmedel',
+    name: 'Bokstavering',
+    full: 'Svenskt och internationellt bokstaveringsalfabet',
+    desc: 'För att bokstavera namn, koordinater och annat som inte får missuppfattas i radio eller telefon.',
+    table: {
+      head: ['', 'Svenskt', 'Internationellt'],
+      rows: [
+        ['A', 'Adam', 'Alfa'], ['B', 'Bertil', 'Bravo'], ['C', 'Caesar', 'Charlie'], ['D', 'David', 'Delta'],
+        ['E', 'Erik', 'Echo'], ['F', 'Filip', 'Foxtrot'], ['G', 'Gustav', 'Golf'], ['H', 'Helge', 'Hotel'],
+        ['I', 'Ivar', 'India'], ['J', 'Johan', 'Juliett'], ['K', 'Kalle', 'Kilo'], ['L', 'Ludvig', 'Lima'],
+        ['M', 'Martin', 'Mike'], ['N', 'Niklas', 'November'], ['O', 'Olof', 'Oscar'], ['P', 'Petter', 'Papa'],
+        ['Q', 'Qvintus', 'Quebec'], ['R', 'Rudolf', 'Romeo'], ['S', 'Sigurd', 'Sierra'], ['T', 'Tore', 'Tango'],
+        ['U', 'Urban', 'Uniform'], ['V', 'Viktor', 'Victor'], ['W', 'Wilhelm', 'Whiskey'], ['X', 'Xerxes', 'X-ray'],
+        ['Y', 'Yngve', 'Yankee'], ['Z', 'Zäta', 'Zulu'], ['Å', 'Åke', '–'], ['Ä', 'Ärlig', '–'], ['Ö', 'Östen', '–'],
+      ],
+    },
   },
 ];
 
@@ -576,6 +684,10 @@ function pageContent(tpl, docId) {
   let page;
   if (tpl.points) {
     page = { content: [intro, h('dl', {}, tpl.points.map(p => [h('dt', {}, p.label), h('dd', {}, p.text)]))] };
+  } else if (tpl.table) {
+    page = { content: [intro, h('table', {},
+      h('thead', {}, h('tr', {}, tpl.table.head.map(c => h('th', { scope: 'col' }, c)))),
+      h('tbody', {}, tpl.table.rows.map(r => h('tr', {}, r.map((c, i) => h(i ? 'td' : 'th', i ? {} : { scope: 'row' }, c))))))] };
   } else if (doc && editing && editing.id === doc.id) {
     page = editPage(tpl, doc);
   } else if (doc) {
