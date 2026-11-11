@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fickminne</title>
+<meta name="description" content="Militärt fickminne med ordermallar">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3d4a2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fickminne">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<style>
+:root {
+  --bg: #f1efe6;
+  --surface: #fbfaf5;
+  --text: #1f2319;
+  --muted: #646a58;
+  --line: #d5d2c2;
+  --accent: #3d4a2a;
+  --accent-text: #f3f1e4;
+  --danger: #9a2f22;
+  --shade: rgba(0, 0, 0, 0);
+  /* M90-liknande splittermönster, genererat (skarvfri ruta) */
+  --camo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Crect width='420' height='420' fill='%233c5233'/%3E%3Cpath fill='%236f8648' d='M19 32L24 2L-5 -85L43 -71L168 46L155 124z'/%3E%3Cpath fill='%236f8648' d='M19 452L24 422L-5 335L43 349L168 466L155 544z'/%3E%3Cpath fill='%236f8648' d='M439 32L444 2L415 -85L463 -71L588 46L575 124z'/%3E%3Cpath fill='%236f8648' d='M439 452L444 422L415 335L463 349L588 466L575 544z'/%3E%3Cpath fill='%236f8648' d='M251 88L233 97L186 103L80 7L85 -27L298 81z'/%3E%3Cpath fill='%236f8648' d='M251 508L233 517L186 523L80 427L85 393L298 501z'/%3E%3Cpath fill='%236f8648' d='M139 383L133 316L121 259L137 250z'/%3E%3Cpath fill='%236f8648' d='M115 42L177 -113L192 -112L206 89z'/%3E%3Cpath fill='%236f8648' d='M115 462L177 307L192 308L206 509z'/%3E%3Cpath fill='%236f8648' d='M160 102L173 20L239 22L238 25L189 119L184 146z'/%3E%3Cpath fill='%236f8648' d='M272 332L254 312L322 294L279 339z'/%3E%3Cpath fill='%236f8648' d='M161 321L141 317L45 147L222 228z'/%3E%3Cpath fill='%236f8648' d='M62 189L8 136L41 121L51 117L109 141z'/%3E%3Cpath fill='%236f8648' d='M140 305L140 222L146 208L210 229z'/%3E%3Cpath fill='%236f8648' d='M269 165L256 153L348 47L293 164z'/%3E%3Cpath fill='%236f8648' d='M189 132L86 104L33 47L31 37L175 81z'/%3E%3Cpath fill='%236f8648' d='M201 266L240 181L251 200L255 203L258 254z'/%3E%3Cpath fill='%236f8648' d='M-194 295L34 198L-11 256L-42 261L-60 276z'/%3E%3Cpath fill='%236f8648' d='M226 295L454 198L409 256L378 261L360 276z'/%3E%3Cpath fill='%236f8648' d='M-93 168L-55 130L-47 124L5 166L-16 198L-65 220z'/%3E%3Cpath fill='%236f8648' d='M327 168L365 130L373 124L425 166L404 198L355 220z'/%3E%3Cpath fill='%236f8648' d='M71 169L3 73L10 48L63 102L73 146z'/%3E%3Cpath fill='%236f8648' d='M0 200L50 171L66 188L64 204L66 245L40 250z'/%3E%3Cpath fill='%231c2529' d='M105 14L161 35L127 50L118 54L93 57L88 39z'/%3E%3Cpath fill='%231c2529' d='M234 34L168 29L95 -51L195 -20z'/%3E%3Cpath fill='%231c2529' d='M234 454L168 449L95 369L195 400z'/%3E%3Cpath fill='%231c2529' d='M68 309L144 303L108 340L108 348L76 375z'/%3E%3Cpath fill='%231c2529' d='M64 -55L69 -77L153 -94L136 -67L104 6L95 -11z'/%3E%3Cpath fill='%231c2529' d='M64 365L69 343L153 326L136 353L104 426L95 409z'/%3E%3Cpath fill='%231c2529' d='M191 332L201 275L205 237L216 228L221 225z'/%3E%3Cpath fill='%231c2529' d='M-35 139L2 83L12 58L52 117z'/%3E%3Cpath fill='%231c2529' d='M385 139L422 83L432 58L472 117z'/%3E%3Cpath fill='%231c2529' d='M152 290L212 295L229 338L215 332z'/%3E%3Cpath fill='%231c2529' d='M165 251L134 246L155 181L185 175L200 224L193 254z'/%3E%3Cpath fill='%231c2529' d='M-2 215L-7 144L8 150L19 123L54 138z'/%3E%3Cpath fill='%231c2529' d='M418 215L413 144L428 150L439 123L474 138z'/%3E%3Cpath fill='%231c2529' d='M-13 404L-57 323L-20 322L51 374z'/%3E%3Cpath fill='%231c2529' d='M407 404L363 323L400 322L471 374z'/%3E%3Cpath fill='%231c2529' d='M29 409L24 291L54 305L86 407z'/%3E%3Cpath fill='%23b3a97c' d='M293 361L304 346L313 384L311 390z'/%3E%3Cpath fill='%23b3a97c' d='M50 271L50 251L60 217L88 274z'/%3E%3Cpath fill='%23b3a97c' d='M193 3L141 -15L138 -17L147 -42L196 -12z'/%3E%3Cpath fill='%23b3a97c' d='M193 423L141 405L138 403L147 378L196 408z'/%3E%3Cpath fill='%23b3a97c' d='M17 68L13 59L28 51L33 39L48 44L60 60z'/%3E%3Cpath fill='%23b3a97c' d='M365 117L346 100L339 73L345 73z'/%3E%3Cpath fill='%23b3a97c' d='M107 219L150 196L181 242L145 253L134 244z'/%3E%3Cpath fill='%23b3a97c' d='M166 317L155 299L148 293L169 254L172 307z'/%3E%3Cpath fill='%23b3a97c' d='M191 358L175 344L181 312L198 314L211 320L224 351z'/%3E%3Cpath fill='%23b3a97c' d='M368 117L340 124L305 114L302 73L318 84L354 93z'/%3E%3Cpath fill='%23b3a97c' d='M205 162L204 138L241 113L222 163z'/%3E%3Cpath fill='%233c5233' d='M212 359L257 286L248 338L246 346L239 352L235 370z'/%3E%3Cpath fill='%233c5233' d='M-17 353L8 345L14 344L73 373L44 387L23 389z'/%3E%3Cpath fill='%233c5233' d='M403 353L428 345L434 344L493 373L464 387L443 389z'/%3E%3Cpath fill='%233c5233' d='M97 288L120 241L123 241L129 318z'/%3E%3Cpath fill='%233c5233' d='M236 23L217 20L181 -16L231 -15L233 -8L238 6z'/%3E%3Cpath fill='%233c5233' d='M236 443L217 440L181 404L231 405L233 412L238 426z'/%3E%3Cpath fill='%233c5233' d='M311 116L337 87L352 79L416 60L335 127z'/%3E%3Cpath fill='%233c5233' d='M143 292L114 261L107 224L117 208L124 208L157 234z'/%3E%3Cpath fill='%233c5233' d='M138 307L95 263L72 253L92 242z'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14160f;
+    --surface: #1e2117;
+    --text: #e4e2d3;
+    --muted: #9a9f8a;
+    --line: #353a29;
+    --accent: #8fa364;
+    --accent-text: #14160f;
+    --danger: #e07a6b;
+    --shade: rgba(8, 10, 6, .55);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+/* Reserv för webbläsare utan overflow: clip (se .stage) */
+@supports not (overflow: clip) { html { overflow-x: hidden; } }
+body {
+  margin: 0;
+  min-height: 100vh; min-height: 100dvh;
+  touch-action: pan-y;  /* vågräta drag går till svepet, lodräta rullar som vanligt */
+  background: linear-gradient(var(--shade), var(--shade)), var(--camo) #4a5d35;
+  background-size: auto, 420px 420px;
+  color: var(--text);
+  font: 17px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- Fasta delar: sidhuvud och meny längst ner ---- */
+header, .bar {
+  background: linear-gradient(rgba(16, 20, 10, .5), rgba(16, 20, 10, .5)), var(--camo) #2c3a22;
+  background-size: auto, 420px 420px;
+  transform: translateZ(0); /* egna lager, så att de ligger still medan sidorna rör sig */
+}
+header button, .bar button, .doclist button, .popmenu button {
+  background: none; border: 0; font: inherit; cursor: pointer;
+}
+header {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; gap: 8px;
+  color: #f6f4e8; text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+  padding: calc(env(safe-area-inset-top) + 8px) calc(env(safe-area-inset-right) + 12px) 8px calc(env(safe-area-inset-left) + 12px);
+  border-bottom: 1px solid rgba(0, 0, 0, .45);
+}
+header h1 {
+  flex: 1; margin: 0; font-size: 18px; font-weight: 650;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+header button {
+  color: inherit; font-weight: 600;
+  min-height: 44px; padding: 0 8px; border-radius: 8px;
+}
+header .dots { font-size: 26px; line-height: 1; min-width: 44px; }
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+  display: flex;
+  border-top: 1px solid rgba(0, 0, 0, .45);
+  padding: 0 12px env(safe-area-inset-bottom);
+}
+.bar button {
+  display: block; flex: 1; min-height: 52px;
+  color: #f6f4e8; text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+  font-weight: 650;
+}
+.bar button + button { border-left: 1px solid rgba(255, 255, 255, .18); }
+.bar button:focus-visible { outline: 2px solid #f6f4e8; outline-offset: -4px; }
+
+/* ---- Sidan ---- */
+/* Scenen klipper sidorna i sidled, så att svepet inte ger vågrät rullning */
+.stage { position: relative; overflow-x: clip; }
+main {
+  /* Solid panel ovanpå mönstret så att texten förblir läsbar */
+  width: min(720px, calc(100% - 20px));
+  margin: 10px auto calc(env(safe-area-inset-bottom) + 68px); /* plats för menyn längst ner */
+  padding: 16px 14px 22px;
+  background: var(--bg); border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+}
+/* Förhandsvisning av grannsidan under ett svep; läge och storlek sätts i skriptet */
+main.ghost {
+  position: absolute; margin: 0; overflow: hidden;
+  pointer-events: none; transition: none; will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Samma tid som SLIDE_MS i skriptet */
+  main.in-right { animation: in-right .18s ease-out; }
+  main.in-left { animation: in-left .18s ease-out; }
+}
+@keyframes in-right { from { transform: translateX(105%); } }
+@keyframes in-left { from { transform: translateX(-105%); } }
+
+h2 {
+  margin: 28px 0 4px; font-size: 13px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--accent);
+}
+h2:first-child { margin-top: 4px; }
+p { margin: 0 0 12px; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 22px 0 0; }
+.muted, .sub, .field .help, .tip { color: var(--muted); font-size: 14px; }
+.sub { margin-bottom: 8px; }
+.tip { border-left: 3px solid var(--accent); padding: 6px 0 6px 12px; margin: 22px 0; }
+.spacer { height: 18px; }
+.pager {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: -4px 0 12px; color: var(--muted); font-size: 13px; font-weight: 600;
+}
+.dotrow { display: flex; gap: 6px; }
+.dotrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.dotrow i.on { background: var(--accent); }
+.read h3 { margin: 0 0 2px; font-size: 22px; overflow-wrap: anywhere; }
+.read dl { margin: 0; }
+.read dt { font-weight: 650; margin-top: 12px; }
+.read dd { margin: 2px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 18px; }
+
+/* ---- Knappar och formulär ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; padding: 0 18px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 600; cursor: pointer;
+}
+.btn.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.btn.danger { color: var(--danger); }
+.btn.block { display: flex; width: 100%; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > .btn { flex: 1; }
+.field { margin: 14px 0 0; }
+.field label, .field .label { display: block; font-weight: 650; }
+.field .help { margin: 2px 0 6px; }
+input[type=text], textarea {
+  display: block; width: 100%;
+  font: inherit; font-size: 17px; /* >=16px: ingen zoom i iOS */
+  color: var(--text); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  -webkit-appearance: none; appearance: none;
+}
+textarea { resize: none; overflow: hidden; min-height: 72px; }
+input:focus, textarea:focus, .btn:focus-visible, header button:focus-visible, .doclist button:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px;
+}
+
+/* ---- Menyer och meddelanden ---- */
+.backdrop {
+  position: fixed; inset: 0; z-index: 10; background: rgba(0, 0, 0, .5);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.backdrop.clear { background: rgba(0, 0, 0, .25); display: block; }
+.sheet {
+  width: min(720px, 100%); max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: var(--bg); border-radius: 16px 16px 0 0;
+  padding: 18px 16px calc(env(safe-area-inset-bottom) + 16px);
+}
+.doclist { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.doclist button {
+  display: block; width: 100%; min-height: 48px; text-align: left; color: inherit;
+  padding: 11px 2px 11px 10px;
+  border-bottom: 1px solid var(--line); border-left: 3px solid transparent;
+}
+.doclist button[aria-current] { border-left-color: var(--accent); }
+.doclist li:last-child button { border-bottom: 0; padding-bottom: 2px; }
+.doclist .t { font-weight: 600; display: block; overflow-wrap: anywhere; }
+.doclist .d { color: var(--muted); font-size: 13px; }
+.popmenu {
+  position: absolute; top: calc(env(safe-area-inset-top) + 56px); right: calc(env(safe-area-inset-right) + 10px);
+  width: min(300px, calc(100% - 20px));
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .4); overflow: hidden;
+}
+.popmenu button {
+  display: block; width: 100%; min-height: 50px; padding: 0 16px; text-align: left;
+  border-bottom: 1px solid var(--line);
+  color: var(--text); font-weight: 600;
+}
+.popmenu p { margin: 0; padding: 10px 16px 12px; font-size: 13px; }
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%); z-index: 20;
+  bottom: calc(env(safe-area-inset-bottom) + 68px);
+  max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 10px;
+  background: var(--text); color: var(--bg); font-size: 15px; font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding:16px">Fickminnet kräver JavaScript.</p></noscript>
+
+<script>
+'use strict';
+
+/* ------------------------------------------------------------------
+   MALLAR
+   Lägg till en ny mall genom att lägga till ett objekt i listan:
+     { id, cat, name, full, desc, closing?, sections }   – formulär som fylls i och sparas
+     { id, cat, name, full, desc, points }               – ren minnesregel utan formulär
+   sections: [{ title, fields: [{ id, label, help, placeholder, auto? }] }]
+     auto: 'tidsnummer' – lämnas fältet tomt får det samma tidsnummer som benämningen
+   points:   [{ label, text }]
+   Byt aldrig id på en mall eller ett fält – sparade poster pekar på dem.
+------------------------------------------------------------------- */
+// Kategorier i den ordning de visas i menyn
+const CATEGORIES = [
+  { id: 'order', name: 'Order/Instruktion' },
+  { id: 'rapport', name: 'Rapport' },
+  { id: 'hjalpmedel', name: 'Hjälpmedel' },
+];
+
+// En mall har antingen `sections` (formulär som fylls i och sparas)
+// eller `points` (ren minnesregel utan formulär).
+const TEMPLATES = [
+  {
+    id: 'solo',
+    cat: 'hjalpmedel',
+    name: 'SOLO',
+    full: 'Stanna – Observera – Lyssna – Ofta',
+    desc: 'Minnesregel för att upptäcka innan du själv blir upptäckt, främst under förflyttning.',
+    points: [
+      { label: 'Stanna', text: 'Stanna till. Välj en plats med skydd eller skyl – inte mitt i en öppning eller på ett krön.' },
+      { label: 'Observera', text: 'Se dig omkring åt alla håll, nära och långt bort. Leta efter rörelse, former och sådant som avviker.' },
+      { label: 'Lyssna', text: 'Stå still och var tyst. Lyssna efter röster, motorer, steg och brutna grenar.' },
+      { label: 'Ofta', text: 'Upprepa ofta – oftare i svår terräng, i mörker och när fienden kan vara nära.' },
+    ],
+  },
+  {
+    id: 'obo',
+    cat: 'order',
+    name: 'OBO',
+    full: 'Orientering – Beslut – Order',
+    desc: 'Kort muntlig order för grupp och pluton när tiden är knapp.',
+    closing: 'Avsluta med: ”Frågor?” – låt någon repetera sin uppgift – ”Utgå!”',
+    sections: [
+      {
+        title: 'Orientering',
+        fields: [
+          { id: 'fi', label: 'Fienden',
+            help: 'Vad vet vi? Var, hur många, vad gör de – och vad väntas de göra härnäst?',
+            placeholder: 'Fi skyttegrupp har observerats vid …' },
+          { id: 'egna', label: 'Egna förband',
+            help: 'Högre chefs och grannars läge och uppgifter som berör oss. Finns egna framför oss?',
+            placeholder: 'Plutonen försvarar … 2. grp till vänster om oss vid …' },
+          { id: 'uppgift', label: 'Vår uppgift',
+            help: 'Uppgiften vi fått av högre chef – vad ska vi uppnå och varför?',
+            placeholder: 'Gruppen ska …' },
+        ],
+      },
+      {
+        title: 'Beslut',
+        fields: [
+          { id: 'beslut', label: 'Jag har beslutat att …',
+            help: 'Vad ska göras, var, när och hur i stort. Tänk: om allt annat glöms ska det här räcka för att agera rätt.',
+            placeholder: 'Vi ska ta eldställning vid … och genom eldöverfall …' },
+        ],
+      },
+      {
+        title: 'Order',
+        fields: [
+          { id: 'uppgifter', label: 'Uppgifter',
+            help: 'En rad per enhet eller soldat: vem – gör vad – var – när.',
+            placeholder: 'Ksp-omgången: eldställning vid …, skjutgräns …\nPskott: …\nÖvriga: …' },
+          { id: 'eld', label: 'Eld och beredskap',
+            help: 'Eldtillstånd, vem som öppnar eld och på vilken signal, stridsberedskap.',
+            placeholder: 'Eld öppnas på min order / när jag skjuter.' },
+          { id: 'tider', label: 'Tider',
+            help: 'Klart senast, anfallstid, avmarsch, tid för återsamling.',
+            placeholder: 'Grupperat klart senast kl …' },
+          { id: 'samband', label: 'Samband och signaler',
+            help: 'Kanal, anrop, tecken och signaler, lösen, vad som gäller om sambandet bryts.',
+            placeholder: 'Signal för eldupphör: …' },
+          { id: 'uh', label: 'Underhåll och sjukvård',
+            help: 'Ammunition, vatten, mat. Var samlas skadade, vem tar hand om dem?',
+            placeholder: 'Uppsamlingsplats skadade: …' },
+          { id: 'ledning', label: 'Ledning',
+            help: 'Var finns chefen? Vem är ställföreträdare? Återsamlingsplats.',
+            placeholder: 'Jag finns vid … Stf är …' },
+        ],
+      },
+    ],
+  },
+  {
+    id: '8s',
+    cat: 'rapport',
+    name: '8S',
+    full: 'Stund – Ställe – Styrka – Slag – Sysselsättning – Symbol – Sagesman – Sedan',
+    desc: 'Rapport om observation av fienden eller annan händelse.',
+    sections: [
+      {
+        title: 'Rapport',
+        fields: [
+          { id: 'stund', label: 'Stund', auto: 'tidsnummer', // samma tidsnummer som benämningen om fältet lämnas tomt
+            help: 'När gjordes iakttagelsen? Datum och klockslag.',
+            placeholder: '111430' },
+          { id: 'stalle', label: 'Ställe',
+            help: 'Var? Koordinat, eller riktning och avstånd från en känd punkt.',
+            placeholder: 'Vägkorset 300 m N om …' },
+          { id: 'styrka', label: 'Styrka',
+            help: 'Hur många? Antal soldater, fordon, pjäser.',
+            placeholder: '8 soldater, 1 fordon' },
+          { id: 'slag', label: 'Slag',
+            help: 'Vad för slags förband eller materiel? Typ av fordon, vapen, utrustning.',
+            placeholder: 'Skytte, hjulgående pansarfordon' },
+          { id: 'syssel', label: 'Sysselsättning',
+            help: 'Vad gör de? Vid förflyttning: riktning och fart.',
+            placeholder: 'Förflyttar sig till fots västerut längs vägen' },
+          { id: 'symbol', label: 'Symbol',
+            help: 'Kännetecken: förbandstecken, märkning, uniform, registreringsnummer.',
+            placeholder: 'Vit triangel på fordonets sida' },
+          { id: 'sagesman', label: 'Sagesman',
+            help: 'Vem har gjort iakttagelsen? Du själv eller någon annan – hur säker är uppgiften?',
+            placeholder: 'Egen iakttagelse med kikare' },
+          { id: 'sedan', label: 'Sedan',
+            help: 'Vad gör du nu? Egen fortsatt verksamhet.',
+            placeholder: 'Fortsätter observera från nuvarande plats' },
+        ],
+      },
+    ],
+  },
+];
+
+/* ---------------- Hjälpfunktioner ---------------- */
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else if (k === 'class') el.className = v;
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  for (const kid of kids.flat(Infinity)) {
+    if (kid == null || kid === false) continue;
+    el.append(kid.nodeType ? kid : document.createTextNode(kid));
+  }
+  return el;
+}
+const spacer = () => h('div', { class: 'spacer' });
+const pad = n => String(n).padStart(2, '0');
+function fmtDate(ms) {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+// Militärt tidsnummer T + DDTTMM i lokal tid, t.ex. T111430 = den 11:e kl 14.30
+function tidsnummer(ms) {
+  const d = new Date(ms);
+  return 'T' + pad(d.getDate()) + pad(d.getHours()) + pad(d.getMinutes());
+}
+function autogrow(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 2 + 'px'; }
+// Alla rutor i ett svep: en layoutberäkning i stället för en per ruta
+function autogrowAll(areas) {
+  for (const ta of areas) ta.style.height = 'auto';
+  const heights = areas.map(ta => ta.scrollHeight);
+  areas.forEach((ta, i) => { ta.style.height = heights[i] + 2 + 'px'; });
+}
+const filled = (values, f) => (values[f.id] || '').trim();
+const hasText = values => Object.values(values || {}).some(v => v && String(v).trim());
+const blank = data => !String(data.title || '').trim() && !hasText(data.values);
+
+let toastTimer;
+function toast(msg) {
+  document.querySelectorAll('.toast').forEach(t => t.remove());
+  const t = h('div', { class: 'toast', role: 'status' }, msg);
+  document.body.append(t);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.remove(), 2600);
+}
+
+/* ---------------- Adresser ----------------
+   #/m/<mall>          – mallens första sida (minneslista eller nytt formulär)
+   #/m/<mall>/<post>   – en sparad post */
+const tplById = id => TEMPLATES.find(t => t.id === id);
+const hashFor = (tplId, docId) => `#/m/${tplId}` + (docId ? `/${docId}` : '');
+function parseHash(hash) {
+  const m = hash.match(/^#\/m\/([^/]+)(?:\/([^/]+))?$/);
+  return m ? { tpl: tplById(m[1]), docId: m[2] || null } : { tpl: undefined, docId: null };
+}
+let slide = ''; // animation för nästa sidbyte: '', 'in-left' eller 'in-right'
+function go(hash, anim = '') { slide = anim; location.hash = hash; }
+
+/* ---------------- Lagring (localStorage) ----------------
+   store.docs   – sparade poster: { id, tpl, title, created, updated, values }
+   store.drafts – påbörjat, ännu inte sparat formulär per mall: { title, values, suggest }.
+                  Att utkastet finns betyder att "Skapa ny" är tryckt; `suggest` är
+                  tidsnumret från det ögonblicket. */
+const KEY = 'fickminne.v1';
+const LAST = 'fickminne.last';
+const store = loadStore();
+
+function loadStore() {
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (!s || typeof s.docs !== 'object' || !s.docs) s = { docs: {} };
+  if (typeof s.drafts !== 'object' || !s.drafts) s.drafts = {};
+  for (const [id, d] of Object.entries(s.drafts)) {
+    // Ett utkast utan text: börja om från "Skapa ny" i stället för ett tomt formulär
+    if (!d || blank(d)) delete s.drafts[id];
+    else if (!d.suggest) d.suggest = tidsnummer(Date.now());
+  }
+  return s;
+}
+let saveTimer;
+function saveStore() {
+  clearTimeout(saveTimer);
+  try { localStorage.setItem(KEY, JSON.stringify(store)); return true; }
+  catch (e) { return false; }
+}
+function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveStore, 300); }
+// Sparar och meddelar resultatet; `undo` återställer minnet om lagringen misslyckas
+function persist(undo) {
+  if (saveStore()) { toast('Sparat.'); return true; }
+  undo();
+  toast('Kunde inte spara – lagringen är full eller avstängd.');
+  return false;
+}
+
+// Senast använda mall, så att appen öppnar där man var
+let lastTpl = null;
+try { lastTpl = localStorage.getItem(LAST); } catch (e) {}
+function rememberTpl(id) {
+  if (id === lastTpl) return;
+  lastTpl = id;
+  try { localStorage.setItem(LAST, id); } catch (e) {}
+}
+
+// Sparade poster för en mall, senast sparade först
+const docsOf = tpl => Object.values(store.docs).filter(d => d.tpl === tpl.id).sort((a, b) => b.created - a.created);
+
+/* ---------------- Kategorier och ordning ---------------- */
+const catIndex = t => CATEGORIES.findIndex(c => c.id === t.cat);
+const catName = t => (CATEGORIES[catIndex(t)] || {}).name || '';
+// Rubrik i sidhuvudet, t.ex. "Rapport: 8S"
+const heading = t => (catName(t) ? `${catName(t)}: ` : '') + t.name;
+// Menyordning: kategori för kategori, bokstavsordning inom varje
+const SORTED = [...TEMPLATES].sort((a, b) =>
+  catIndex(a) - catIndex(b) || a.name.localeCompare(b.name, 'sv', { numeric: true }));
+
+/* ---------------- Förslag och text ---------------- */
+// Det som används när ett fält i ett nytt formulär lämnas tomt: benämningen och fält
+// märkta auto: 'tidsnummer' (t.ex. Stund i 8S) får samma tidsnummer.
+function defaultsFor(tpl, draft) {
+  const values = {};
+  for (const s of tpl.sections) for (const f of s.fields) {
+    if (f.auto === 'tidsnummer') values[f.id] = draft.suggest;
+  }
+  return { title: draft.suggest, values };
+}
+// Utkastet med förslagen ifyllda där fälten lämnats tomma
+function resolved(tpl, draft) {
+  const d = defaultsFor(tpl, draft);
+  const values = { ...draft.values };
+  for (const [id, v] of Object.entries(d.values)) if (!(values[id] || '').trim()) values[id] = v;
+  return { title: draft.title.trim() || d.title, values };
+}
+// Sektioner som har något ifyllt, som [sektion, ifyllda fält]
+const filledSections = (tpl, values) =>
+  tpl.sections.map(s => [s, s.fields.filter(f => filled(values, f))]).filter(([, rows]) => rows.length);
+
+function asText(tpl, data, when) {
+  const out = [`${tpl.name} – ${data.title}`, fmtDate(when)];
+  for (const [s, rows] of filledSections(tpl, data.values)) {
+    out.push('', s.title.toUpperCase());
+    for (const f of rows) {
+      const v = filled(data.values, f);
+      // Korta svar på samma rad som rubriken, längre under den
+      if (v.includes('\n')) out.push(`${f.label}:`, v);
+      else out.push(`${f.label}: ${v}`);
+    }
+  }
+  return out.join('\n');
+}
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (e) {
+    // Reserv där clipboard-API:t saknas (t.ex. fil öppnad direkt från disk)
+    const ta = h('textarea', { readonly: '', style: 'position:fixed;top:0;left:0;opacity:0' });
+    ta.value = text;
+    document.body.append(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e2) {}
+    ta.remove();
+    return ok;
+  }
+}
+// Raden med Kopiera och Dela (Dela bara där webbläsaren har en delningsdialog)
+function copyShareRow(getText) {
+  const copy = async () => {
+    toast(await copyText(getText()) ? 'Kopierat till urklipp.' : 'Kunde inte kopiera.');
+  };
+  const share = async () => {
+    try { await navigator.share({ text: getText() }); }
+    catch (e) { if (e && e.name !== 'AbortError') toast('Kunde inte dela.'); }
+  };
+  return h('div', { class: 'row' },
+    h('button', { class: 'btn', onclick: copy }, 'Kopiera'),
+    navigator.share ? h('button', { class: 'btn', onclick: share }, 'Dela') : null);
+}
+
+/* ---------------- Mallsidan ----------------
+   Varje mall är en rad sidor som man sveper mellan:
+     sida 0      – mallen som minneslista; "Skapa ny" visar formuläret
+                   (utkastet sparas automatiskt tills man trycker Spara)
+     sida 1, 2 … – sparade poster, senast sparade först (ligger till vänster om sida 0)
+   Minnesregler (`points`) har bara sida 0. */
+const app = document.getElementById('app');
+// Sidhuvud, scen och meny är samma element hela tiden – bara innehållet byts – så att
+// de fasta delarna inte ritas om vid sidbyte. Scenen klipper sidorna i sidled under svep.
+const headerEl = h('header', {});
+const stageEl = h('div', { class: 'stage' });
+const barEl = h('nav', { class: 'bar' });
+app.append(headerEl, stageEl, barEl);
+
+let editing = null; // arbetskopia { id, title, values } när en sparad post redigeras
+// Grannsidorna till den som visas: { docId } eller null om det inte finns någon.
+// next = mot äldre sparade, prev = tillbaka mot sida 0.
+let nav = { tpl: null, prev: null, next: null };
+const neighbour = dir => dir > 0 ? nav.next : nav.prev;
+
+// `instant` = sidan är redan på plats (svepet drog in den), hoppa över inglidningen
+function turn(dir, instant) {
+  const n = neighbour(dir);
+  if (!n) return;
+  // Äldre sidor kommer in från vänster
+  go(hashFor(nav.tpl.id, n.docId), instant ? '' : dir > 0 ? 'in-left' : 'in-right');
+}
+
+const closingTip = tpl => tpl.closing ? h('div', { class: 'tip' }, tpl.closing) : null;
+// Mallar med flera sektioner (t.ex. OBO) får en mellanrubrik per sektion.
+// Har mallen bara en sektion (t.ex. 8S) räcker en avdelarlinje.
+const sectionHead = (tpl, s) => tpl.sections.length > 1 ? h('h2', {}, s.title) : h('hr', {});
+// Avbryt/Spara finns både i sidhuvudet och som knapprad längst ner
+const cancelSave = (cancel, save) => ({
+  action: [h('button', { onclick: cancel }, 'Avbryt'), h('button', { onclick: save }, 'Spara')],
+  row: h('div', { class: 'row' },
+    h('button', { class: 'btn', onclick: cancel }, 'Avbryt'),
+    h('button', { class: 'btn primary', onclick: save }, 'Spara')),
+});
+
+// Bygger innehållet för en sida utan att ändra något annat. Används både för sidan
+// som visas och för förhandsvisningen av grannsidan under ett svep.
+function pageContent(tpl, docId) {
+  const docs = tpl.sections ? docsOf(tpl) : [];
+  const idx = docId ? docs.findIndex(d => d.id === docId) + 1 : 0;
+  const doc = idx ? docs[idx - 1] : null;
+  const draft = store.drafts[tpl.id];
+  const intro = [h('div', { class: 'sub' }, tpl.desc), h('p', {}, tpl.full)];
+
+  let page;
+  if (tpl.points) {
+    page = { content: [intro, h('dl', {}, tpl.points.map(p => [h('dt', {}, p.label), h('dd', {}, p.text)]))] };
+  } else if (doc && editing && editing.id === doc.id) {
+    page = editPage(tpl, doc);
+  } else if (doc) {
+    page = readPage(tpl, doc, docs[idx] || docs[idx - 2]); // äldre granne i första hand, annars nyare
+  } else if (draft) {
+    page = draftPage(tpl, draft, intro);
+  } else {
+    const start = () => {
+      store.drafts[tpl.id] = { title: '', values: {}, suggest: tidsnummer(Date.now()) };
+      route();
+    };
+    page = { content: [intro, h('button', { class: 'btn primary block', onclick: start }, 'Skapa ny'), outline(tpl)] };
+  }
+
+  // Lägesvisare (ingen navigering): äldst längst till vänster, sida 0 längst till höger
+  const pager = docs.length ? h('div', { class: 'pager', role: 'status' },
+    h('span', {}, idx === 0 ? 'Nytt formulär' : `Sparad ${idx} av ${docs.length}`),
+    h('span', { class: 'dotrow', 'aria-hidden': 'true' },
+      docs.length < 12 ? [...docs, null].map((_, i) => h('i', { class: i === docs.length - idx ? 'on' : '' })) : null)) : null;
+
+  return { docs, idx, action: page.action || [], areas: page.areas || [], nodes: [pager, page.content] };
+}
+
+// Sida 0 med formuläret öppet
+function draftPage(tpl, draft, intro) {
+  const { action, row } = cancelSave(() => clearDraft(tpl, draft), () => saveNew(tpl, draft));
+  const form = buildForm(tpl, draft, { onChange: saveSoon, defaults: defaultsFor(tpl, draft) });
+  return { action, areas: form.areas, content: [intro, form.nodes, row, spacer(),
+    copyShareRow(() => asText(tpl, resolved(tpl, draft), Date.now()))] };
+}
+
+// Sparad post i redigeringsläge: ändringarna ligger i `editing` tills man trycker Spara
+function editPage(tpl, doc) {
+  const save = () => {
+    const before = { title: doc.title, values: doc.values, updated: doc.updated };
+    Object.assign(doc, { title: editing.title.trim() || doc.title, values: editing.values, updated: Date.now() });
+    if (!persist(() => Object.assign(doc, before))) return;
+    editing = null;
+    route();
+  };
+  const { action, row } = cancelSave(() => { editing = null; route(); }, save);
+  const form = buildForm(tpl, editing, { defaults: { title: doc.title, values: {} } });
+  return { action, areas: form.areas, content: [form.nodes, row] };
+}
+
+// Sparad post i läsläge
+function readPage(tpl, doc, neighbourDoc) {
+  const edit = () => { editing = { id: doc.id, title: doc.title, values: { ...doc.values } }; route(); };
+  const remove = () => {
+    if (!confirm(`Radera ”${doc.title}”?`)) return;
+    delete store.docs[doc.id];
+    saveStore();
+    go(hashFor(tpl.id, neighbourDoc && neighbourDoc.id));
+  };
+  const body = filledSections(tpl, doc.values).map(([s, rows]) => [sectionHead(tpl, s),
+    h('dl', {}, rows.map(f => [h('dt', {}, f.label), h('dd', {}, filled(doc.values, f))]))]);
+  return {
+    action: [h('button', { onclick: edit }, 'Redigera')],
+    content: [
+      h('h3', {}, doc.title),
+      h('div', { class: 'muted' }, `Sparad ${fmtDate(doc.created)}` +
+        (doc.updated > doc.created ? ` · ändrad ${fmtDate(doc.updated)}` : '')),
+      body.length ? body : h('p', { class: 'muted', style: 'margin-top:16px' }, 'Inget ifyllt.'),
+      closingTip(tpl) || spacer(),
+      h('button', { class: 'btn primary block', onclick: edit }, 'Redigera'),
+      spacer(),
+      copyShareRow(() => asText(tpl, doc, doc.updated)),
+      spacer(),
+      h('button', { class: 'btn danger block', onclick: remove }, 'Radera')],
+  };
+}
+
+// Mallen som minneslista: rubriker och hjälptexter utan inmatningsfält
+function outline(tpl) {
+  return [
+    tpl.sections.map(s => [sectionHead(tpl, s), s.fields.map(f =>
+      h('div', { class: 'field' },
+        h('div', { class: 'label' }, f.label),
+        h('div', { class: 'help' }, f.help)))]),
+    closingTip(tpl)];
+}
+
+// Formuläret mot `data` ({ title, values }), som ändras direkt när man skriver.
+// `defaults` ({ title, values }) visas som förslag i tomma fält.
+function buildForm(tpl, data, { onChange = () => {}, defaults }) {
+  const usedIfEmpty = v => v ? ` Lämnas fältet tomt används ${v}.` : '';
+  const title = h('input', {
+    type: 'text', id: 'f-title', value: data.title, placeholder: defaults.title,
+    autocomplete: 'off', enterkeyhint: 'done',
+    oninput: e => { data.title = e.target.value; onChange(); },
+  });
+  const areas = [];
+  const sections = tpl.sections.map(s => [
+    sectionHead(tpl, s),
+    s.fields.map(f => {
+      const dflt = defaults.values[f.id];
+      const ta = h('textarea', {
+        id: `f-${f.id}`, rows: 3, placeholder: dflt || f.placeholder || '',
+        oninput: e => { data.values[f.id] = e.target.value; autogrow(e.target); onChange(); },
+      });
+      ta.value = data.values[f.id] || '';
+      areas.push(ta);
+      return h('div', { class: 'field' },
+        h('label', { for: `f-${f.id}` }, f.label),
+        h('div', { class: 'help' }, f.help + usedIfEmpty(dflt)),
+        ta);
+    }),
+  ]);
+  const nodes = [
+    h('div', { class: 'field' },
+      h('label', { for: 'f-title' }, 'Benämning'),
+      h('div', { class: 'help' }, usedIfEmpty(defaults.title).trim()),
+      title),
+    sections,
+    closingTip(tpl) || spacer(),
+  ];
+  return { nodes, areas };
+}
+
+// Spara på sida 0: utkastet blir en ny sparad post och sida 0 går tillbaka till "Skapa ny"
+function saveNew(tpl, draft) {
+  if (blank(draft)) { toast('Fyll i något innan du sparar.'); return; }
+  const now = Date.now();
+  const id = now.toString(36) + Math.random().toString(36).slice(2, 6);
+  store.docs[id] = { id, tpl: tpl.id, ...resolved(tpl, draft), created: now, updated: now };
+  delete store.drafts[tpl.id];
+  if (!persist(() => { delete store.docs[id]; store.drafts[tpl.id] = draft; })) return;
+  go(hashFor(tpl.id, id), 'in-left');
+}
+// Avbryt på sida 0: släng utkastet och gå tillbaka till "Skapa ny"
+function clearDraft(tpl, draft) {
+  if (!blank(draft) && !confirm('Rensa formuläret? Det du skrivit försvinner.')) return;
+  delete store.drafts[tpl.id];
+  saveStore();
+  route();
+}
+
+// Visar en sida: uppdaterar sidhuvud, scen, meny och grannsidorna för svepet
+function viewTpl(tpl, docId) {
+  rememberTpl(tpl.id);
+  if (editing && editing.id !== docId) editing = null;
+  const p = pageContent(tpl, docId);
+  const at = i => ({ docId: i ? p.docs[i - 1].id : null });
+  // Under redigering är sidbyte avstängt så att ändringar inte tappas
+  nav = editing ? { tpl, prev: null, next: null } : {
+    tpl,
+    prev: p.idx > 0 ? at(p.idx - 1) : null,
+    next: p.idx < p.docs.length ? at(p.idx + 1) : null,
+  };
+  headerEl.replaceChildren(
+    h('h1', {}, heading(tpl)),
+    ...p.action,
+    h('button', { class: 'dots', 'aria-label': 'Meny', 'aria-haspopup': 'menu', onclick: openTopMenu }, '⋯'));
+  stageEl.replaceChildren(h('main', { class: `read ${slide}` }, p.nodes));
+  barEl.replaceChildren(...bottomBar(tpl.id, docId));
+  autogrowAll(p.areas);
+  scrollTo(0, 0);
+  slide = '';
+}
+
+/* ---------------- Svep ----------------
+   De sparade posterna ligger till vänster om sida 0, så man drar fingret åt höger för
+   senast sparade (och vidare för äldre) och åt vänster för att gå tillbaka. Sidan följer
+   fingret, och grannsidan ritas som en "spökbild" bredvid så att den syns under draget. */
+const SLIDE_MS = 180; // samma tid som inglidningen i CSS (main.in-left / main.in-right)
+let swipe = null;
+const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+addEventListener('touchstart', e => {
+  swipe = null;
+  if (menuEl || e.touches.length !== 1 || (!nav.prev && !nav.next)) return;
+  const t = e.touches[0];
+  // Lämna skärmkanterna åt iOS egna bakåt/framåt-svep
+  if (t.clientX < 24 || t.clientX > innerWidth - 24) return;
+  swipe = { x: t.clientX, y: t.clientY, drag: false, el: stageEl.firstElementChild, w: innerWidth, ghosts: {} };
+}, { passive: true });
+
+// Spökbilden för en riktning byggs högst en gång per svep; null om det inte finns någon sida där
+function ghostFor(s, dir) {
+  if (dir in s.ghosts) return s.ghosts[dir];
+  const n = neighbour(dir);
+  let g = null;
+  if (n) {
+    const p = pageContent(nav.tpl, n.docId);
+    g = h('main', { class: 'read ghost', 'aria-hidden': 'true' }, p.nodes);
+    const headH = headerEl.offsetHeight, barH = barEl.offsetHeight;
+    Object.assign(g.style, {
+      // Överkanten där den nya sidan hamnar efter bytet, även om man rullat ner
+      top: `${scrollY + headH + 10 - stageEl.offsetTop}px`,
+      left: `${s.el.offsetLeft - stageEl.offsetLeft}px`, width: `${s.el.offsetWidth}px`,
+      // Inom det synliga fönstret, så att sidans höjd inte ändras under draget
+      maxHeight: `${Math.max(100, innerHeight - headH - barH - 20)}px`,
+    });
+    stageEl.append(g);
+    autogrowAll(p.areas);
+  }
+  return s.ghosts[dir] = g;
+}
+function dropGhosts(s) {
+  for (const g of Object.values(s.ghosts)) if (g) g.remove();
+  s.ghosts = {};
+}
+function place(s, dx) {
+  s.el.style.transform = `translateX(${dx}px)`;
+  for (const [dir, g] of Object.entries(s.ghosts)) {
+    if (g) g.style.transform = `translateX(${dx - dir * s.w}px)`;
+  }
+}
+function settle(s, dx) {
+  const ease = `transform ${SLIDE_MS}ms ease-out`;
+  s.el.style.transition = ease;
+  for (const g of Object.values(s.ghosts)) if (g) g.style.transition = ease;
+  place(s, dx);
+}
+function snapBack(s) {
+  settle(s, 0);
+  s.el.style.transform = '';
+  s.el.style.willChange = '';
+  setTimeout(() => dropGhosts(s), SLIDE_MS + 20);
+}
+
+addEventListener('touchmove', e => {
+  if (!swipe) return;
+  const t = e.touches[0];
+  const dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
+  if (!swipe.drag) {
+    if (Math.abs(dy) > 12 && Math.abs(dy) >= Math.abs(dx)) { swipe = null; return; } // lodrät rullning
+    if (Math.abs(dx) < 12 || Math.abs(dx) < 1.5 * Math.abs(dy)) return;
+    swipe.drag = true;
+    swipe.el.style.transition = 'none';
+    swipe.el.style.willChange = 'transform';
+  }
+  // Följ fingret; trögt motstånd om det inte finns någon sida åt det hållet
+  place(swipe, ghostFor(swipe, dx > 0 ? 1 : -1) ? dx : dx * 0.2);
+}, { passive: true });
+
+addEventListener('touchend', e => {
+  const s = swipe;
+  swipe = null;
+  if (!s) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - s.x, dy = t.clientY - s.y;
+  const dir = dx > 0 ? 1 : -1;
+  const far = Math.abs(dx) >= 70 && (s.drag || Math.abs(dx) >= 2 * Math.abs(dy));
+  if (!far || !neighbour(dir)) { if (s.drag) snapBack(s); return; }
+  if (reduceMotion() || !s.ghosts[dir]) { dropGhosts(s); turn(dir); return; }
+  // Glid klart: aktuell sida ut, grannsidan in på plats, byt sedan sida utan ny animation
+  settle(s, dir * s.w);
+  setTimeout(() => turn(dir, true), SLIDE_MS);
+}, { passive: true });
+
+addEventListener('touchcancel', () => { if (swipe && swipe.drag) snapBack(swipe); swipe = null; }, { passive: true });
+
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
+  if (menuEl || /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+  if (e.key === 'ArrowLeft') turn(1);   // mot äldre sparade
+  if (e.key === 'ArrowRight') turn(-1); // tillbaka mot sida 0
+});
+
+/* ---------------- Menyer ---------------- */
+const fileInput = h('input', { type: 'file', accept: 'application/json,.json', hidden: '', onchange: importBackup });
+document.body.append(fileInput);
+let menuEl = null;
+
+function bottomBar(currentId, currentDocId) {
+  const n = Object.keys(store.docs).length;
+  return [
+    h('button', { 'aria-haspopup': 'dialog', onclick: () => openSaved(currentDocId) }, n ? `Sparade (${n})` : 'Sparade'),
+    h('button', { 'aria-haspopup': 'dialog', onclick: () => openMenu(currentId) }, '☰  Meny')];
+}
+function closeMenu() {
+  if (menuEl) { menuEl.remove(); menuEl = null; }
+}
+// Mörklagd bakgrund som stänger menyn när man trycker utanför den
+function overlay(cls, child) {
+  closeMenu();
+  menuEl = h('div', { class: `backdrop ${cls}`, onclick: e => { if (e.target === menuEl) closeMenu(); } }, child);
+  document.body.append(menuEl);
+}
+function sheet(label, ...kids) {
+  overlay('', h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': label },
+    kids,
+    spacer(),
+    h('button', { class: 'btn block', onclick: closeMenu }, 'Stäng')));
+}
+// Lista med genvägar: [{ current, hash, title, sub }]
+const navList = items => h('ul', { class: 'doclist' }, items.map(it =>
+  h('li', {}, h('button', {
+    'aria-current': it.current ? 'page' : false,
+    // Stäng själv: att välja sidan man redan står på ger ingen hashchange
+    onclick: () => { closeMenu(); go(it.hash); },
+  },
+    h('span', { class: 't' }, it.title),
+    it.sub ? h('span', { class: 'd' }, it.sub) : null))));
+
+function openMenu(currentId) {
+  sheet('Meny', CATEGORIES.map(c => {
+    const list = SORTED.filter(t => t.cat === c.id);
+    return list.length ? [h('h2', {}, c.name),
+      navList(list.map(t => ({ current: t.id === currentId, hash: hashFor(t.id), title: t.name })))] : null;
+  }));
+}
+// Alla sparade poster, grupperade per mall i menyordning, senast sparade först
+function openSaved(currentDocId) {
+  const groups = SORTED.map(t => {
+    const docs = docsOf(t);
+    return docs.length ? [h('h2', {}, heading(t)),
+      navList(docs.map(d => ({ current: d.id === currentDocId, hash: hashFor(t.id, d.id), title: d.title, sub: fmtDate(d.created) })))] : null;
+  });
+  sheet('Sparade', groups.some(Boolean) ? groups : [h('h2', {}, 'Sparade'), h('p', { class: 'muted' }, 'Inga sparade ännu.')]);
+}
+// Menyknappen längst upp: säkerhetskopia
+function openTopMenu() {
+  overlay('clear', h('div', { class: 'popmenu', role: 'menu', 'aria-label': 'Meny' },
+    h('button', { role: 'menuitem', onclick: () => { closeMenu(); exportBackup(); } }, 'Exportera säkerhetskopia'),
+    h('button', { role: 'menuitem', onclick: () => { closeMenu(); fileInput.click(); } }, 'Importera säkerhetskopia'),
+    h('p', { class: 'muted' }, 'Allt sparas enbart lokalt i den här webbläsaren, okrypterat. Exportera det du vill behålla.')));
+}
+
+/* ---------------- Säkerhetskopia ---------------- */
+async function exportBackup() {
+  const name = `fickminne-${fmtDate(Date.now()).slice(0, 10)}.json`;
+  const blob = new Blob([JSON.stringify({ docs: store.docs }, null, 2)], { type: 'application/json' });
+  try {
+    const f = new File([blob], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); return; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = h('a', { href: URL.createObjectURL(blob), download: name });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+async function importBackup(e) {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    let n = 0;
+    for (const d of Object.values(data.docs)) {
+      const tpl = d && tplById(d.tpl);
+      if (!tpl || !tpl.sections || !d.id) continue;
+      const cur = store.docs[d.id];
+      if (cur && cur.updated >= d.updated) continue; // behåll nyaste
+      const created = +d.created || Date.now();
+      store.docs[d.id] = {
+        id: String(d.id), tpl: d.tpl, title: String(d.title || '').trim() || tidsnummer(created),
+        created, updated: +d.updated || created,
+        values: Object.fromEntries(Object.entries(d.values || {}).map(([k, v]) => [k, String(v)])),
+      };
+      n++;
+    }
+    saveStore();
+    route();
+    toast(`${n} poster importerade.`);
+  } catch (err) {
+    toast('Filen kunde inte läsas som en säkerhetskopia.');
+  }
+}
+
+/* ---------------- Routing ---------------- */
+function route() {
+  closeMenu();
+  let { tpl, docId } = parseHash(location.hash);
+  if (!tpl) {
+    // Okänd adress: öppna senast använda mall, annars den första i menyn
+    tpl = tplById(lastTpl) || SORTED[0];
+    docId = null;
+    history.replaceState(null, '', hashFor(tpl.id));
+  } else if (docId && !(store.docs[docId] && store.docs[docId].tpl === tpl.id)) {
+    docId = null;
+    history.replaceState(null, '', hashFor(tpl.id));
+  }
+  viewTpl(tpl, docId);
+}
+addEventListener('hashchange', route);
+// Spara direkt om appen läggs i bakgrunden mitt i en inmatning
+addEventListener('pagehide', saveStore);
+document.addEventListener('visibilitychange', () => { if (document.hidden) saveStore(); });
+route();
+
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
