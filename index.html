@@ -1184,9 +1184,9 @@ document.body.append(fileInput);
 let menuEl = null;
 
 function bottomBar(currentId, currentDocId) {
-  const n = Object.keys(store.docs).length;
+  const n = docsOf(tplById(currentId)).length; // antal för den valda mallen
   return [
-    h('button', { 'aria-haspopup': 'dialog', onclick: () => openSaved(currentDocId) }, n ? `Sparade (${n})` : 'Sparade'),
+    h('button', { 'aria-haspopup': 'dialog', onclick: () => openSaved(currentId, currentDocId) }, n ? `Sparade (${n})` : 'Sparade'),
     h('button', { 'aria-haspopup': 'dialog', onclick: () => openMenu(currentId) }, '☰  Meny')];
 }
 function closeMenu() {
@@ -1221,14 +1221,28 @@ function openMenu(currentId) {
       navList(list.map(t => ({ current: t.id === currentId, hash: hashFor(t.id), title: t.name })))] : null;
   }));
 }
-// Alla sparade poster, grupperade per mall i menyordning, senast sparade först
-function openSaved(currentDocId) {
-  const groups = SORTED.map(t => {
-    const docs = docsOf(t);
-    return docs.length ? [h('h2', {}, heading(t)),
-      navList(docs.map(d => ({ current: d.id === currentDocId, hash: hashFor(t.id, d.id), title: d.title, sub: fmtDate(d.created) })))] : null;
-  });
-  sheet('Sparade', groups.some(Boolean) ? groups : [h('h2', {}, 'Sparade'), h('p', { class: 'muted' }, 'Inga sparade ännu.')]);
+// Sparade poster för en mall som genvägslista, senast sparade först
+const savedList = (t, docs, currentDocId) =>
+  navList(docs.map(d => ({ current: d.id === currentDocId, hash: hashFor(t.id, d.id), title: d.title, sub: fmtDate(d.created) })));
+// Sparade för den valda mallen. Övriga mallars poster ligger i en undermeny.
+function openSaved(currentId, currentDocId) {
+  const tpl = tplById(currentId);
+  const docs = docsOf(tpl);
+  const others = Object.keys(store.docs).length - docs.length;
+  sheet('Sparade',
+    h('h2', {}, heading(tpl)),
+    docs.length ? savedList(tpl, docs, currentDocId) : h('p', { class: 'muted' }, 'Inga sparade för den här mallen.'),
+    others ? [spacer(), h('button', { class: 'btn block', 'aria-haspopup': 'dialog', onclick: () => openOtherSaved(currentId, currentDocId) },
+      `Övriga mallar (${others})  ›`)] : null);
+}
+// Undermenyn: sparade poster för alla andra mallar, grupperade per mall i menyordning
+function openOtherSaved(currentId, currentDocId) {
+  sheet('Sparade i övriga mallar',
+    h('button', { class: 'btn block', onclick: () => openSaved(currentId, currentDocId) }, '‹  Tillbaka'),
+    SORTED.filter(t => t.id !== currentId).map(t => {
+      const docs = docsOf(t);
+      return docs.length ? [h('h2', {}, heading(t)), savedList(t, docs)] : null;
+    }));
 }
 // Menyknappen längst upp: säkerhetskopia
 function openTopMenu() {
