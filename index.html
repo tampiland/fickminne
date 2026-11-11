@@ -239,8 +239,9 @@ const CATEGORIES = [
   { id: 'hjalpmedel', name: 'Hjälpmedel' },
 ];
 
-// En mall har antingen `sections` (formulär som fylls i och sparas)
-// eller `points` (ren minnesregel utan formulär).
+// En mall har antingen `sections` (formulär som fylls i och sparas), `points`
+// (ren minnesregel utan formulär) eller `table`. Ett formulär kan också ha `extras`:
+// valbara sektioner som läggs till i formuläret vid behov (t.ex. SCRIMM i 8S).
 const TEMPLATES = [
   {
     id: 'solo',
@@ -347,6 +348,41 @@ const TEMPLATES = [
         ],
       },
     ],
+    extras: [
+      {
+        id: 'scrimm', name: 'SCRIMM', title: 'SCRIMM – fordon',
+        fields: [
+          { id: 'scrimm_shape', label: 'Shape – form', help: 'Typ och kaross: personbil, skåpbil, lastbil, bandvagn, stridsfordon.', placeholder: 'Skåpbil, hög modell' },
+          { id: 'scrimm_colour', label: 'Colour – färg', help: 'Färg, lackering eller kamouflagemålning.', placeholder: 'Mörkgrå, matt' },
+          { id: 'scrimm_reg', label: 'Registration – registreringsnummer', help: 'Registreringsskylt, nationalitet eller taktiskt nummer.', placeholder: 'ABC 123' },
+          { id: 'scrimm_ident', label: 'Identifying marks – kännetecken', help: 'Skador, dekaler, antenner, last, takräcke, ombyggnader.', placeholder: 'Buckla vänster bakskärm, två antenner på taket' },
+          { id: 'scrimm_make', label: 'Make – märke', help: 'Tillverkare.', placeholder: 'Volkswagen' },
+          { id: 'scrimm_model', label: 'Model – modell', help: 'Modell och ungefärlig årsmodell.', placeholder: 'Transporter, ca 2015' },
+        ],
+      },
+      {
+        id: 'weft', name: 'WEFT', title: 'WEFT – luftfarkost',
+        fields: [
+          { id: 'weft_wings', label: 'Wings – vingar', help: 'Placering (hög, mitt, låg), form (raka, pilform, delta) – eller rotorer och antal rotorblad.', placeholder: 'Högvingad, raka vingar' },
+          { id: 'weft_engine', label: 'Engine – motorer', help: 'Antal, typ (jet, propeller) och placering. Luftintagens läge.', placeholder: '2 propellermotorer under vingarna' },
+          { id: 'weft_fuselage', label: 'Fuselage – flygkropp', help: 'Form och storlek, nos, förarkabin, vapen och yttre last.', placeholder: 'Lång smal kropp, sensorkula under nosen' },
+          { id: 'weft_tail', label: 'Tail – stjärt', help: 'Antal fenor och stabilisatorns placering (T-stjärt, V-stjärt, dubbla fenor).', placeholder: 'V-stjärt' },
+        ],
+      },
+      {
+        id: 'ah', name: 'A–H', title: 'A–H – person',
+        fields: [
+          { id: 'ah_age', label: 'Age – ålder', help: 'Ungefärlig ålder.', placeholder: '30–40 år' },
+          { id: 'ah_build', label: 'Build – kroppsbyggnad', help: 'Smal, normal, kraftig.', placeholder: 'Kraftig' },
+          { id: 'ah_clothing', label: 'Clothing – klädsel', help: 'Uppifrån och ner: huvudbonad, jacka, byxor, skor. Väska, utrustning, vapen.', placeholder: 'Svart mössa, grön jacka, jeans, ryggsäck' },
+          { id: 'ah_dist', label: 'Distinguishing marks – särskilda kännetecken', help: 'Ärr, tatueringar, glasögon, skägg, smycken.', placeholder: 'Glasögon, tatuering höger underarm' },
+          { id: 'ah_elev', label: 'Elevation – längd', help: 'Ungefärlig längd, gärna jämförd med något känt.', placeholder: 'Ca 185 cm' },
+          { id: 'ah_face', label: 'Face – ansikte', help: 'Ansiktsform, hy, ögon, näsa.', placeholder: 'Runt ansikte, ljus hy' },
+          { id: 'ah_gait', label: 'Gait – gång', help: 'Hur personen rör sig: haltar, snabb, framåtlutad.', placeholder: 'Haltar lätt på vänster ben' },
+          { id: 'ah_hair', label: 'Hair – hår', help: 'Färg, längd och frisyr.', placeholder: 'Kort, mörkt' },
+        ],
+      },
+    ],
   },
   {
     id: 'obslosa',
@@ -450,6 +486,166 @@ const TEMPLATES = [
         ['Y', 'Yngve', 'Yankee'], ['Z', 'Zäta', 'Zulu'], ['Å', 'Åke', '–'], ['Ä', 'Ärlig', '–'], ['Ö', 'Östen', '–'],
       ],
     },
+  },
+  {
+    id: 'mist',
+    cat: 'rapport',
+    name: 'MIST',
+    full: 'Mechanism – Injuries – Signs – Treatment',
+    desc: 'Överlämningsrapport om en skadad, till sjukvårdare eller vid avtransport. En rapport per skadad.',
+    sections: [
+      {
+        title: 'Rapport',
+        fields: [
+          { id: 'mech', label: 'Mechanism – skademekanism',
+            help: 'Vad hände och när? Skott, splitter, explosion, fall, fordonsolycka, brand.',
+            placeholder: 'Splitter från granatnedslag kl 14.20' },
+          { id: 'injuries', label: 'Injuries – skador',
+            help: 'Skador som hittats eller misstänks, och var på kroppen.',
+            placeholder: 'Splitterskada höger lår, kraftig blödning' },
+          { id: 'signs', label: 'Signs – tecken och vitalvärden',
+            help: 'Medvetandegrad, andningsfrekvens, puls, hud – och om läget blir bättre eller sämre.',
+            placeholder: 'Vaken, svarar på tilltal. Andning 24/min, puls 110, blek och kallsvettig' },
+          { id: 'treatment', label: 'Treatment – åtgärder',
+            help: 'Vad som är gjort och när: tourniquet (klockslag), förband, fri luftväg, läkemedel.',
+            placeholder: 'Tourniquet höger lår kl 14.23, tryckförband, filt' },
+        ],
+      },
+    ],
+  },
+  {
+    id: '5p',
+    cat: 'order',
+    name: '5-punktsorder',
+    full: 'Situation – Uppgift – Genomförande – Underhåll – Ledning och samband',
+    desc: 'Order enligt Natos fempunktsmall (Situation – Mission – Execution – Service support – Command and signal).',
+    closing: 'Avsluta med: ”Frågor?” – låt underlydande repetera sina uppgifter – ställ klockan.',
+    sections: [
+      {
+        title: '1. Situation',
+        fields: [
+          { id: 'fi', label: 'Fienden',
+            help: 'Styrka, läge, verksamhet och troligt handlande.',
+            placeholder: 'Fi skyttepluton grupperad vid … väntas …' },
+          { id: 'egna', label: 'Egna förband',
+            help: 'Högre chefs uppgift och avsikt. Grannar och understöd som berör oss.',
+            placeholder: 'Kompaniet ska … 2. plut till höger om oss …' },
+          { id: 'tillfort', label: 'Tillförda och avgående enheter',
+            help: 'Vad som tillförts eller avdelats, och från när.',
+            placeholder: 'Sjukvårdare tillförs från kl …' },
+          { id: 'terrang', label: 'Terräng, väder och civilläge',
+            help: 'Det som påverkar lösandet av uppgiften: sikt, framkomlighet, mörker, civila i området.',
+            placeholder: 'Mörkt från kl … Civila finns kvar i …' },
+        ],
+      },
+      {
+        title: '2. Uppgift',
+        fields: [
+          { id: 'uppgift', label: 'Uppgift',
+            help: 'Vem – vad – var – när – varför. En tydlig mening, som sägs två gånger.',
+            placeholder: 'Plutonen ska senast kl … ta … för att …' },
+        ],
+      },
+      {
+        title: '3. Genomförande',
+        fields: [
+          { id: 'avsikt', label: 'Avsikt och stridsplan',
+            help: 'Vad som ska uppnås och hur striden ska föras i stort, skede för skede.',
+            placeholder: 'Jag avser att … Skede 1: … Skede 2: …' },
+          { id: 'uppgifter', label: 'Uppgifter till enheter',
+            help: 'En rad per enhet: vem – gör vad – var – när.',
+            placeholder: '1. grp: …\n2. grp: …\nUnderstöd: …' },
+          { id: 'samordning', label: 'Samordning',
+            help: 'Det som gäller alla: tider, gränser, marschväg, eldtillstånd, åtgärder vid sammanstöt, återsamlingsplats.',
+            placeholder: 'Avmarsch kl … Eld öppnas …' },
+        ],
+      },
+      {
+        title: '4. Underhåll',
+        fields: [
+          { id: 'fornod', label: 'Förnödenheter',
+            help: 'Ammunition, vatten, mat, drivmedel – vad som medförs och hur det fylls på.',
+            placeholder: 'Am och vatten kompletteras vid …' },
+          { id: 'sjv', label: 'Sjukvård',
+            help: 'Uppsamlingsplats för skadade, avtransport och vem som ansvarar.',
+            placeholder: 'Uppsamlingsplats skadade: …' },
+        ],
+      },
+      {
+        title: '5. Ledning och samband',
+        fields: [
+          { id: 'ledning', label: 'Ledning',
+            help: 'Chefens plats under de olika skedena. Ställföreträdare, i ordningsföljd.',
+            placeholder: 'Jag följer … Stf är …' },
+          { id: 'samband', label: 'Samband',
+            help: 'Kanaler och anrop, lösen, tecken och signaler, vad som gäller om sambandet bryts.',
+            placeholder: 'Kanal … Lösen: … Signal för eldupphör: …' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'abcde',
+    cat: 'hjalpmedel',
+    name: 'ABCDE',
+    full: '<C> – Airway – Breathing – Circulation – Disability – Exposure',
+    desc: 'Ordningsföljd vid omhändertagande av skadad: det som dödar först åtgärdas först. Börja om från början om läget försämras.',
+    points: [
+      { label: '<C> Catastrophic bleeding – livshotande blödning', text: 'Stoppa stora blödningar först: tourniquet högt på armen eller benet, annars tryck direkt i såret och tryckförband. Anteckna klockslaget.' },
+      { label: 'A Airway – luftväg', text: 'Är luftvägen fri? Titta i munnen, lyft hakan eller käken. Medvetslös som andas läggs i stabilt sidoläge.' },
+      { label: 'B Breathing – andning', text: 'Se, lyssna och känn efter andning. Räkna andetag per minut. Leta efter skador på bröstkorg och rygg, och täck öppna bröstskador.' },
+      { label: 'C Circulation – cirkulation', text: 'Känn pulsen och titta på huden: blek, kall och svettig tyder på chock. Leta efter fler blödningar och kontrollera att tourniquet och förband håller.' },
+      { label: 'D Disability – medvetande', text: 'Hur vaken är den skadade? Vaken – reagerar på tilltal – reagerar på smärta – reagerar inte. Jämför pupillerna och be den skadade röra armar och ben.' },
+      { label: 'E Exposure – helkroppsundersökning och skydd', text: 'Undersök hela kroppen, även ryggen. Skydda sedan mot kyla: isolera mot marken, byt blött mot torrt och svep in.' },
+    ],
+  },
+  {
+    id: 'position',
+    cat: 'hjalpmedel',
+    name: 'Positionsangivelse',
+    full: 'MGRS – Military Grid Reference System',
+    desc: 'Hur en position skrivs och läses upp som rutkoordinat.',
+    points: [
+      { label: 'Format', text: 'Zon och bälte – 100 km-ruta – östvärde – nordvärde. Exempel: 33V WE 1234 5678.' },
+      { label: 'Zon och bälte', text: 'Två siffror och en bokstav, t.ex. 33V eller 34V. Utelämnas ofta när det inte kan bli fel.' },
+      { label: '100 km-ruta', text: 'Två bokstäver, t.ex. WE. Står angiven på kartan och bokstaveras i radio.' },
+      { label: 'Öst före nord', text: 'Läs först av östvärdet (åt höger), sedan nordvärdet (uppåt), från rutans nedre vänstra hörn. De två värdena har alltid lika många siffror.' },
+      { label: 'Noggrannhet', text: '4 siffror (12 56) = 1 km. 6 siffror (123 567) = 100 m. 8 siffror (1234 5678) = 10 m. 10 siffror = 1 m.' },
+      { label: 'I radio', text: 'Siffrorna läses en i taget: ”ett två tre fyra – fem sex sju åtta”.' },
+      { label: 'Utan koordinat', text: 'Ange riktning och avstånd från en känd punkt: ”300 m norr om vägkorset vid …”.' },
+    ],
+  },
+  {
+    id: 'vinkel',
+    cat: 'hjalpmedel',
+    name: 'Vinkelangivelse',
+    full: 'Streck (mils)',
+    desc: 'Hur riktningar och vinklar anges i streck.',
+    points: [
+      { label: 'Ett varv', text: '6400 streck i Nato-systemet. Äldre svensk materiel har 6300 streck per varv – kontrollera vad kompassen eller instrumentet är graderat i.' },
+      { label: 'Format', text: 'Fyra siffror, t.ex. 0800 eller 3250. Riktningen räknas medurs från norr.' },
+      { label: 'Väderstreck', text: 'Norr 0000 (6400) – öster 1600 – söder 3200 – väster 4800.' },
+      { label: 'I radio', text: 'Siffrorna läses en i taget: ”riktning noll åtta noll noll”.' },
+      { label: 'Streckregeln', text: '1 streck motsvarar ungefär 1 m i sidled på 1000 m avstånd. Bredd (m) = avstånd (km) × streck.' },
+      { label: 'Streck och grader', text: '1° ≈ 18 streck. 100 streck ≈ 5,6°. 90° = 1600 streck.' },
+      { label: 'Ange vad riktningen utgår från', text: 'Säg om riktningen är tagen med kompass (magnetisk) eller på kartan (rutnät), och varifrån.' },
+    ],
+  },
+  {
+    id: 'tid',
+    cat: 'hjalpmedel',
+    name: 'Tidsangivelse',
+    full: 'Tidsnummer och DTG (Date-Time Group)',
+    desc: 'Hur tidpunkter skrivs och läses upp.',
+    points: [
+      { label: 'Klockslag', text: 'Fyra siffror, 24-timmarsklocka: 0630, 1430. Sägs ”noll sex trettio”, ”fjorton trettio”.' },
+      { label: 'Tidsnummer', text: 'DDTTMM – dag, timme, minut. 111430 = den 11:e klockan 14.30.' },
+      { label: 'I appen', text: 'Benämningen föreslås som T följt av tidsnumret, t.ex. T111430.' },
+      { label: 'DTG', text: 'DDTTMM + tidszon + månad + år. Exempel: 111430A NOV 26.' },
+      { label: 'Tidszon', text: 'Z (Zulu) = UTC. A (Alfa) = UTC+1, svensk normaltid. B (Bravo) = UTC+2, svensk sommartid. J (Juliett) = lokal tid.' },
+      { label: 'Månad', text: 'Tre bokstäver på engelska: JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC.' },
+      { label: 'Ange tidszon vid samverkan', text: 'Skriv ut bokstaven när tiden går till någon som kan räkna i en annan tidszon.' },
+    ],
   },
 ];
 
@@ -586,7 +782,8 @@ function resolved(tpl, draft) {
 }
 // Sektioner som har något ifyllt, som [sektion, ifyllda fält]
 const filledSections = (tpl, values) =>
-  tpl.sections.map(s => [s, s.fields.filter(f => filled(values, f))]).filter(([, rows]) => rows.length);
+  [...tpl.sections, ...(tpl.extras || [])]
+    .map(s => [s, s.fields.filter(f => filled(values, f))]).filter(([, rows]) => rows.length);
 
 function asText(tpl, data, when) {
   const out = [`${tpl.name} – ${data.title}`, fmtDate(when)];
@@ -662,8 +859,9 @@ function turn(dir, instant) {
 
 const closingTip = tpl => tpl.closing ? h('div', { class: 'tip' }, tpl.closing) : null;
 // Mallar med flera sektioner (t.ex. OBO) får en mellanrubrik per sektion.
-// Har mallen bara en sektion (t.ex. 8S) räcker en avdelarlinje.
-const sectionHead = (tpl, s) => tpl.sections.length > 1 ? h('h2', {}, s.title) : h('hr', {});
+// Har mallen bara en sektion (t.ex. 8S) räcker en avdelarlinje. Utökningar har alltid rubrik.
+const sectionHead = (tpl, s) =>
+  tpl.sections.length > 1 || !tpl.sections.includes(s) ? h('h2', {}, s.title) : h('hr', {});
 // Avbryt/Spara finns både i sidhuvudet och som knapprad längst ner
 const cancelSave = (cancel, save) => ({
   action: [h('button', { onclick: cancel }, 'Avbryt'), h('button', { onclick: save }, 'Spara')],
@@ -771,6 +969,7 @@ function outline(tpl) {
       h('div', { class: 'field' },
         h('div', { class: 'label' }, f.label),
         h('div', { class: 'help' }, f.help)))]),
+    tpl.extras ? h('div', { class: 'tip' }, 'Formuläret kan utökas med: ' + tpl.extras.map(x => x.title).join(', ') + '.') : null,
     closingTip(tpl)];
 }
 
@@ -784,28 +983,44 @@ function buildForm(tpl, data, { onChange = () => {}, defaults }) {
     oninput: e => { data.title = e.target.value; onChange(); },
   });
   const areas = [];
-  const sections = tpl.sections.map(s => [
-    sectionHead(tpl, s),
-    s.fields.map(f => {
-      const dflt = defaults.values[f.id];
-      const ta = h('textarea', {
-        id: `f-${f.id}`, rows: 3, placeholder: dflt || f.placeholder || '',
-        oninput: e => { data.values[f.id] = e.target.value; autogrow(e.target); onChange(); },
-      });
-      ta.value = data.values[f.id] || '';
-      areas.push(ta);
-      return h('div', { class: 'field' },
-        h('label', { for: `f-${f.id}` }, f.label),
-        h('div', { class: 'help' }, f.help + usedIfEmpty(dflt)),
-        ta);
-    }),
-  ]);
+  const field = f => {
+    const dflt = defaults.values[f.id];
+    const ta = h('textarea', {
+      id: `f-${f.id}`, rows: 3, placeholder: dflt || f.placeholder || '',
+      oninput: e => { data.values[f.id] = e.target.value; autogrow(e.target); onChange(); },
+    });
+    ta.value = data.values[f.id] || '';
+    areas.push(ta);
+    return h('div', { class: 'field' },
+      h('label', { for: `f-${f.id}` }, f.label),
+      h('div', { class: 'help' }, f.help + usedIfEmpty(dflt)),
+      ta);
+  };
+  const sections = tpl.sections.map(s => [sectionHead(tpl, s), s.fields.map(field)]);
+  // Valbara utökningar: en knapp tills man lägger till dem. Öppna från början om något är ifyllt.
+  const extras = (tpl.extras || []).map(x => {
+    const box = h('div', {});
+    const hasValues = () => x.fields.some(f => filled(data.values, f));
+    const remove = () => {
+      if (hasValues() && !confirm(`Ta bort ${x.name}? Det du skrivit där försvinner.`)) return;
+      for (const f of x.fields) delete data.values[f.id];
+      onChange();
+      draw(false);
+    };
+    const draw = open => box.replaceChildren(open
+      ? h('div', { style: 'margin-top: 28px' }, h('h2', {}, x.title), x.fields.map(field),
+          h('div', { class: 'field' }, h('button', { class: 'btn block', onclick: remove }, `Ta bort ${x.name}`)))
+      : h('div', { class: 'field' }, h('button', { class: 'btn block', onclick: () => draw(true) }, `+ ${x.title}`)));
+    draw(hasValues());
+    return box;
+  });
   const nodes = [
     h('div', { class: 'field' },
       h('label', { for: 'f-title' }, 'Benämning'),
       h('div', { class: 'help' }, usedIfEmpty(defaults.title).trim()),
       title),
     sections,
+    extras,
     closingTip(tpl) || spacer(),
   ];
   return { nodes, areas };
