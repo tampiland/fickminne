@@ -236,7 +236,8 @@ input:focus, textarea:focus, .btn:focus-visible, header button:focus-visible, .d
 ------------------------------------------------------------------- */
 // Kategorier i den ordning de visas i menyn
 const CATEGORIES = [
-  { id: 'order', name: 'Order/Instruktion' },
+  { id: 'order', name: 'Order' },
+  { id: 'instruktion', name: 'Instruktion' },
   { id: 'rapport', name: 'Rapport' },
   { id: 'hjalpmedel', name: 'Hjälpmedel' },
 ];
@@ -388,7 +389,7 @@ const TEMPLATES = [
   },
   {
     id: 'obslosa',
-    cat: 'order',
+    cat: 'instruktion',
     name: 'OBSLÖSA',
     full: 'Orientering – Bevakningsområde – Sätt att tillkalla chef – Lösen – Öppnande av eld – Ställning och utrustning – Avlösning',
     desc: 'Instruktion till post.',
@@ -455,7 +456,7 @@ const TEMPLATES = [
   },
   {
     id: 'eobusare',
-    cat: 'hjalpmedel',
+    cat: 'instruktion',
     name: 'EOBUSARE',
     full: 'Eldställning – Observatör – Bevakningsområde – Utgångspunkter – Samband – Am- och skaderapport – Rapport – Eldställningar förbättras',
     desc: 'Gruppchefens kom-ihåg-lista när gruppen går i stridsställning och det finns tid. En checklista, inte en fast ordningsföljd.',

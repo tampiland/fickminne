@@ -2,7 +2,7 @@
 
 Militärt fickminne med mallar för order och rapporter, som webapp. En enda HTML-fil, inget byggsteg.
 
-- Mallar: OBO, OBSLÖSA och 5-punktsorder (order/instruktion), 8S, PEDARS och MIST (rapport), samt SOLO, EOBUSARE, ABCDE, bokstavering och formathjälp för position, vinkel och tid (hjälpmedel). Fler läggs till i `TEMPLATES` överst i skriptet i `index.html`.
+- Mallar: OBO och 5-punktsorder (order), OBSLÖSA och EOBUSARE (instruktion), 8S, PEDARS och MIST (rapport), samt SOLO, ABCDE, bokstavering och formathjälp för position, vinkel och tid (hjälpmedel). Fler läggs till i `TEMPLATES` överst i skriptet i `index.html`.
 - 8S kan utökas i formuläret med SCRIMM (fordon), WEFT (luftfarkost) och A–H (person).
 - Varje mall öppnas som en minneslista. "Skapa ny" visar formuläret, och sparade poster nås genom att svepa åt höger eller via "Sparade" i menyn längst ner.
 - Allt sparas i webbläsarens `localStorage` på enheten. Inget skickas någonstans.
